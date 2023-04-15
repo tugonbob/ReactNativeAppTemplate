@@ -1,0 +1,16 @@
+export const Rubik = {
+  rubikBlack: require("./Rubik-Black.ttf"),
+  rubikBlackItalic: require("./Rubik-BlackItalic.ttf"),
+  rubikBold: require("./Rubik-Bold.ttf"),
+  rubikBoldItalic: require("./Rubik-BoldItalic.ttf"),
+  rubikExtraBold: require("./Rubik-ExtraBold.ttf"),
+  rubikExtraBoldItalic: require("./Rubik-ExtraBoldItalic.ttf"),
+  rubikItalic: require("./Rubik-Italic.ttf"),
+  rubikLight: require("./Rubik-Light.ttf"),
+  rubikLightItalic: require("./Rubik-LightItalic.ttf"),
+  rubikMedium: require("./Rubik-Medium.ttf"),
+  rubikMediumItalic: require("./Rubik-MediumItalic.ttf"),
+  rubikRegular: require("./Rubik-Regular.ttf"),
+  rubikSemiBold: require("./Rubik-SemiBold.ttf"),
+  rubikSemiBoldItalic: require("./Rubik-SemiBoldItalic.ttf"),
+};
