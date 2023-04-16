@@ -52,7 +52,7 @@ export function Logo({
         nameAntDesign="codepen-circle"
         size={size}
         containerStyle={logoContainerStyle}
-        color="white"
+        color={Colors.gray90}
       />
       {mode === "reduced" ? null : mode === "full-vertical" ? (
         <H0>Chat Ai</H0>
@@ -70,18 +70,18 @@ const styles = StyleSheet.create({
   },
   fullLogoContainer: {
     marginRight: 8,
-    backgroundColor: Colors.primary,
+    backgroundColor: Colors.gray0,
     borderRadius: 12,
     padding: 9,
   },
   fullVerticalLogoContainer: {
-    backgroundColor: Colors.primary,
+    backgroundColor: Colors.gray0,
     borderRadius: 12,
     padding: 16,
     marginBottom: 8,
   },
   reducedLogoContainer: {
-    backgroundColor: Colors.primary,
+    backgroundColor: Colors.gray0,
     borderRadius: 12,
     padding: 9,
   },

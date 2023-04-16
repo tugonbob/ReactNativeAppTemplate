@@ -72,7 +72,11 @@ export function LoginScreen({ navigation, route }: ScreenProps) {
       <Row style={{ justifyContent: "center" }}>
         <P1>Don't have an account?</P1>
         <Spacer horizontal size={8} />
-        <Link>Sign up</Link>
+        <Link
+          onPress={() => navigation.navigate("SignUpScreen", { email: email })}
+        >
+          Sign up
+        </Link>
       </Row>
       <Row>
         <HorizontalLine style={{ marginRight: 8 }} />

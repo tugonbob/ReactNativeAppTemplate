@@ -13,7 +13,7 @@ export function SignUpVerificationScreen({ route }: ScreenProps) {
     <ScrollableView>
       <Logo mode="reduced" />
       <Spacer size={64} />
-      <H1 style={{ textAlign: "center" }}>Verify email</H1>
+      <H1 style={{ textAlign: "center" }}>Verify your email</H1>
       <P1 style={{ textAlign: "center" }}>
         We sent an email to {route.params.email}. Click the link inside to get
         started.

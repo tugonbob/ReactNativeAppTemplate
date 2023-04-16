@@ -10,6 +10,8 @@ import {
   SignUpVerificationScreen,
   LoginScreen,
   LoginPasswordScreen,
+  LoginForgotPasswordScreen,
+  LoginForgotPasswordEmailScreen,
 } from "screens";
 
 export type RootStackParamList = {
@@ -19,6 +21,8 @@ export type RootStackParamList = {
   SignUpPasswordScreen: { email: string };
   LoginScreen: { email: string };
   LoginPasswordScreen: { email: string };
+  LoginForgotPasswordScreen: { email: string };
+  LoginForgotPasswordEmailScreen: { email: string };
   HomeScreen: undefined;
 };
 
@@ -59,6 +63,14 @@ export default function App() {
           <Stack.Screen
             name="LoginPasswordScreen"
             component={LoginPasswordScreen}
+          />
+          <Stack.Screen
+            name="LoginForgotPasswordScreen"
+            component={LoginForgotPasswordScreen}
+          />
+          <Stack.Screen
+            name="LoginForgotPasswordEmailScreen"
+            component={LoginForgotPasswordEmailScreen}
           />
         </Stack.Group>
 
