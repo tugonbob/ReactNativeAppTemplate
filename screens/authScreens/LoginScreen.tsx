@@ -1,5 +1,6 @@
-import { View, Text } from "react-native";
-import React, { useState } from "react";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { RootStackParamList } from "App";
+import { Colors } from "assets";
 import {
   B1,
   BoxButton,
@@ -15,17 +16,15 @@ import {
   ScrollableView,
   Spacer,
 } from "components";
-import { Colors } from "assets";
 import GoogleAuthButton from "components/otherComponents/GoogleAuthButton";
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { RootStackParamList } from "App";
+import React, { useState } from "react";
 
-type ScreenProps = NativeStackScreenProps<RootStackParamList, "SignUpScreen">;
+type ScreenProps = NativeStackScreenProps<RootStackParamList, "LoginScreen">;
 
-export function SignUpScreen({ navigation, route }: ScreenProps) {
-  const [email, setEmail] = useState("");
-  const [emailError, setEmailError] = useState("");
+export function LoginScreen({ navigation, route }: ScreenProps) {
+  const [email, setEmail] = useState(route.params.email);
   const [emailColor, setEmailColor] = useState(Colors.gray40);
+  const [emailError, setEmailError] = useState("");
 
   function submitEmail() {
     // Regular expression to check for valid email addresses
@@ -39,49 +38,41 @@ export function SignUpScreen({ navigation, route }: ScreenProps) {
       return setEmailError("Please provide a valid email");
     }
 
-    navigation.navigate("SignUpPasswordScreen", { email });
+    navigation.navigate("LoginPasswordScreen", { email });
   }
 
   return (
     <ScrollableView>
       <Logo mode="reduced" />
       <Spacer size={64} />
-      <H1 style={{ textAlign: "center" }}>Create your account</H1>
-      <P1 style={{ textAlign: "center" }}>
-        Please note that phone verification is required for signup. Your number
-        will only be used to verify your identity for security purposes.
-      </P1>
-      <Spacer />
+      <H1 style={{ textAlign: "center" }}>Welcome back</H1>
       <BoxInput
-        placeholder="Email address"
-        keyboardType="email-address"
-        autoCapitalize="none"
+        placeholder="Email"
+        autoFocus
         value={email}
         onChangeText={setEmail}
+        autoCapitalize="none"
         placeholderStyle={{ color: emailColor }}
         contentContainerStyle={{ borderColor: emailColor }}
         onFocus={() => setEmailColor(Colors.primary)}
       />
-      {emailError ? <Err>{emailError}</Err> : null}
+      {emailError ? <Err style={{ marginBottom: 0 }}>{emailError}</Err> : null}
       <Spacer />
       <BoxButton
         onPress={submitEmail}
         style={{
           minHeight: 48,
-          padding: 0,
-          backgroundColor: Colors.confirm,
-          borderColor: Colors.confirm,
+          borderColor: Colors.primary,
+          backgroundColor: Colors.primary,
         }}
       >
         <B1 style={{ marginBottom: 0, color: Colors.gray0 }}>Continue</B1>
       </BoxButton>
       <Spacer />
       <Row style={{ justifyContent: "center" }}>
-        <P1>Already have any account?</P1>
+        <P1>Don't have an account?</P1>
         <Spacer horizontal size={8} />
-        <Link onPress={() => navigation.navigate("LoginScreen", { email })}>
-          Log in
-        </Link>
+        <Link>Sign up</Link>
       </Row>
       <Row>
         <HorizontalLine style={{ marginRight: 8 }} />

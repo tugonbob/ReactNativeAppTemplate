@@ -45,6 +45,7 @@ export function BoxInput({
     new Animated.ValueXY({ x: 0, y: 0 })
   );
   const [fontSizeAnimation] = useState(new Animated.Value(16));
+  const [color, setColor] = useState(Colors.gray40);
 
   useEffect(() => {
     if (value.length > 0) return focusAnimation();
@@ -107,12 +108,12 @@ export function BoxInput({
             style,
           ]}
           onFocus={(event: NativeSyntheticEvent<TextInputFocusEventData>) => {
-            onFocus();
             focusAnimation();
+            onFocus();
           }}
           onEndEditing={() => {
-            onEndEditing();
             unFocusAnimation();
+            onEndEditing();
           }}
           value={value}
           onChangeText={(str: string) => onChangeText(str)}

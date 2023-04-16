@@ -29,7 +29,10 @@ export function SignUpPasswordScreen({ navigation, route }: ScreenProps) {
   const [passwordColor, setPasswordColor] = useState(Colors.gray40);
 
   function submitPassword() {
-    if (!isValidPassword()) return setPasswordColor(Colors.cancel);
+    if (!isValidPassword()) {
+      setShowPassRequirements(true);
+      return setPasswordColor(Colors.cancel);
+    }
 
     navigation.navigate("SignUpEmailVerificationScreen", {
       email: route.params.email,
@@ -70,6 +73,7 @@ export function SignUpPasswordScreen({ navigation, route }: ScreenProps) {
       <Spacer size={8} />
       <BoxInput
         placeholder="Password"
+        autoFocus
         secureTextEntry={hidePassword}
         placeholderStyle={{
           color: passwordColor,
@@ -78,6 +82,7 @@ export function SignUpPasswordScreen({ navigation, route }: ScreenProps) {
         onChangeText={(pass) => {
           setPassword(pass);
           setShowPassRequirements(true);
+          if (isValidPassword()) setPasswordColor(Colors.primary);
         }}
         rightIcon={
           hidePassword ? (
@@ -138,7 +143,13 @@ export function SignUpPasswordScreen({ navigation, route }: ScreenProps) {
       <Row style={{ justifyContent: "center" }}>
         <P1>Already have an account?</P1>
         <Spacer horizontal size={4} />
-        <Link onPress={() => {}}>Log in</Link>
+        <Link
+          onPress={() =>
+            navigation.navigate("LoginScreen", { email: route.params.email })
+          }
+        >
+          Log in
+        </Link>
       </Row>
     </ScrollableView>
   );
