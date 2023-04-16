@@ -81,9 +81,9 @@ export function SignUpPasswordScreen({ navigation, route }: ScreenProps) {
         }}
         rightIcon={
           hidePassword ? (
-            <Icon nameIonicons="eye-off-outline" size="x5" />
-          ) : (
             <Icon nameIonicons="eye-outline" size="x5" />
+          ) : (
+            <Icon nameIonicons="eye-off-outline" size="x5" />
           )
         }
         onRightIconPress={() => {
