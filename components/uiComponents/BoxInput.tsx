@@ -1,22 +1,25 @@
 import { Colors } from "assets";
 import { Row } from "components/commonComponents";
+import { P1 } from "components/textComponents";
 import React, { ReactElement, useEffect, useState } from "react";
 import {
   Animated,
+  NativeSyntheticEvent,
   Platform,
   Pressable,
   StyleSheet,
   TextInput,
+  TextInputFocusEventData,
   TextInputProps,
+  TextStyle,
   View,
   ViewStyle,
 } from "react-native";
-import { P1 } from "components/textComponents";
 
 export function BoxInput({
   placeholder = "",
-  placeholderTextColor = Colors.gray70,
   value = "",
+  placeholderStyle = {},
   contentContainerStyle = {},
   style = {},
   leftIcon,
@@ -24,13 +27,18 @@ export function BoxInput({
   onRightIconPress = () => {},
   leftPadding = 32,
   onChangeText = () => {},
+  onFocus = () => {},
+  onEndEditing = () => {},
   ...props
 }: TextInputProps & {
   contentContainerStyle?: ViewStyle;
+  placeholderStyle?: TextStyle;
   leftIcon?: ReactElement;
   rightIcon?: ReactElement;
   onRightIconPress?: () => void;
   leftPadding?: number;
+  onFocus?: () => void;
+  onEndEditing?: () => void;
 }) {
   const [focused, setFocused] = useState(false);
   const [labelTranslateAnimation] = useState(
@@ -46,7 +54,7 @@ export function BoxInput({
   const focusAnimation = () => {
     Animated.parallel([
       Animated.timing(labelTranslateAnimation, {
-        toValue: Platform.OS === "ios" ? { x: 2, y: -8 } : { x: 0, y: -9 },
+        toValue: Platform.OS === "ios" ? { x: 0, y: -8 } : { x: 0, y: -9 },
         duration: 300,
         useNativeDriver: false,
       }),
@@ -78,7 +86,11 @@ export function BoxInput({
   return (
     <View style={[styles.container, contentContainerStyle]}>
       <P1
-        style={[styles.floatingLabel, { left: leftIcon ? leftPadding : 16 }]}
+        style={[
+          styles.floatingLabel,
+          { left: leftIcon ? leftPadding : 16 },
+          placeholderStyle,
+        ]}
         animation={{
           translate: labelTranslateAnimation,
           fontSize: fontSizeAnimation,
@@ -94,12 +106,12 @@ export function BoxInput({
             { paddingLeft: leftIcon ? leftPadding : 16 },
             style,
           ]}
-          onFocus={() => {
-            setFocused(true);
+          onFocus={(event: NativeSyntheticEvent<TextInputFocusEventData>) => {
+            onFocus();
             focusAnimation();
           }}
           onEndEditing={() => {
-            setFocused(false);
+            onEndEditing();
             unFocusAnimation();
           }}
           value={value}
@@ -108,7 +120,11 @@ export function BoxInput({
         />
         {rightIcon ? (
           <Pressable
-            style={{ position: "absolute", right: 8 }}
+            style={{
+              marginRight: 8,
+              alignItems: "flex-end",
+              justifyContent: "center",
+            }}
             onPress={() => onRightIconPress()}
           >
             {rightIcon}
@@ -133,7 +149,6 @@ const styles = StyleSheet.create({
 
   box: {
     flex: 1,
-    position: "absolute",
     left: 0,
     width: "100%",
     paddingTop: 16,

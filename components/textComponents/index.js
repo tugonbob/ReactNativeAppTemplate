@@ -9,3 +9,4 @@ export * from "./I1";
 export * from "./I2";
 export * from "./P1";
 export * from "./P2";
+export * from "./Link";

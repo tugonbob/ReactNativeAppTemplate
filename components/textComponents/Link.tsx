@@ -1,22 +1,20 @@
-import { View, Text, TextProps, StyleSheet } from "react-native";
-import React from "react";
-import { Animated } from "react-native";
-import { AnimationDefault, AnimationProps } from "animations";
+import { Colors, Lato } from "assets";
 import { useFonts } from "expo-font";
-import { Lato, Colors } from "assets";
-import { Icon } from "../commonComponents";
+import React from "react";
+import { Animated, StyleSheet, TextProps } from "react-native";
+import { AnimationDefault, AnimationProps } from "animations";
 
-export function Err({
+export function Link({
   animation: {
     opacity = AnimationDefault.opacity,
     scale = AnimationDefault.scale,
     translate = AnimationDefault.translate,
-    fontSize = new Animated.Value(12),
+    fontSize = new Animated.Value(16),
   } = {
     opacity: AnimationDefault.opacity,
     scale: AnimationDefault.scale,
     translate: AnimationDefault.translate,
-    fontSize: new Animated.Value(12),
+    fontSize: new Animated.Value(16),
   },
   ...props
 }: TextProps & { animation?: AnimationProps }) {
@@ -26,8 +24,9 @@ export function Err({
 
   return (
     <Animated.Text
+      {...props}
       style={[
-        styles.defaultStyle,
+        styles.defaultStyles,
         {
           opacity: opacity,
           transform: [
@@ -46,10 +45,10 @@ export function Err({
 }
 
 const styles = StyleSheet.create({
-  defaultStyle: {
+  defaultStyles: {
     fontFamily: "LatoRegular",
-    fontSize: 14,
-    color: Colors.cancel,
-    marginBottom: 7,
+    fontSize: 16,
+    color: Colors.link,
+    marginBottom: 8,
   },
 });

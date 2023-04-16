@@ -6,6 +6,7 @@ export const Colors = {
   confirm: "#00a2e8",
   warn: "yellow",
   cancel: "#e84855",
+  link: "#00a2e8",
   gray0: "#faf9f6",
   gray10: "#eeeeee",
   gray20: "#dddddd",
