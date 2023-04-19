@@ -40,12 +40,10 @@ export function BoxInput({
   onFocus?: () => void;
   onEndEditing?: () => void;
 }) {
-  const [focused, setFocused] = useState(false);
   const [labelTranslateAnimation] = useState(
     new Animated.ValueXY({ x: 0, y: 0 })
   );
   const [fontSizeAnimation] = useState(new Animated.Value(16));
-  const [color, setColor] = useState(Colors.gray40);
 
   useEffect(() => {
     if (value.length > 0) return focusAnimation();
@@ -55,13 +53,13 @@ export function BoxInput({
   const focusAnimation = () => {
     Animated.parallel([
       Animated.timing(labelTranslateAnimation, {
-        toValue: Platform.OS === "ios" ? { x: 0, y: -8 } : { x: 0, y: -9 },
-        duration: 300,
+        toValue: Platform.OS === "ios" ? { x: 0, y: -23 } : { x: 0, y: -9 },
+        duration: 200,
         useNativeDriver: false,
       }),
       Animated.timing(fontSizeAnimation, {
         toValue: 12,
-        duration: 300,
+        duration: 200,
         useNativeDriver: false,
       }),
     ]).start();
@@ -73,12 +71,12 @@ export function BoxInput({
     Animated.parallel([
       Animated.timing(labelTranslateAnimation, {
         toValue: { x: 0, y: 0 },
-        duration: 300,
+        duration: 200,
         useNativeDriver: false,
       }),
       Animated.timing(fontSizeAnimation, {
         toValue: 16,
-        duration: 300,
+        duration: 200,
         useNativeDriver: false,
       }),
     ]).start();
@@ -89,7 +87,10 @@ export function BoxInput({
       <P1
         style={[
           styles.floatingLabel,
-          { left: leftIcon ? leftPadding : 16 },
+          {
+            left: leftIcon ? leftPadding : 16,
+            paddingHorizontal: placeholder ? 4 : 0,
+          },
           placeholderStyle,
         ]}
         animation={{
@@ -152,7 +153,6 @@ const styles = StyleSheet.create({
     flex: 1,
     left: 0,
     width: "100%",
-    paddingTop: 16,
     paddingHorizontal: 16,
     fontSize: 16,
     color: Colors.gray90,
@@ -165,5 +165,6 @@ const styles = StyleSheet.create({
     padding: 0,
     left: 32,
     color: Colors.gray70,
+    backgroundColor: Colors.gray0,
   },
 });
