@@ -55,9 +55,9 @@ export function Logo({
         color={Colors.gray90}
       />
       {mode === "reduced" ? null : mode === "full-vertical" ? (
-        <H0>Chat Ai</H0>
+        <H0 style={{ marginBottom: 0 }}>Chat Ai</H0>
       ) : (
-        <H1>Chat Ai</H1>
+        <H1 style={{ marginBottom: 0 }}>Chat Ai</H1>
       )}
     </Animated.View>
   );
