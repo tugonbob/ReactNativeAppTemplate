@@ -7,16 +7,13 @@ import {
   BoxInput,
   Err,
   H1,
-  HorizontalLine,
   Link,
   Logo,
   P1,
-  P2,
   Row,
   ScrollableView,
   Spacer,
 } from "components";
-import GoogleAuthButton from "components/otherComponents/GoogleAuthButton";
 import React, { useState } from "react";
 
 type ScreenProps = NativeStackScreenProps<RootStackParamList, "LoginScreen">;

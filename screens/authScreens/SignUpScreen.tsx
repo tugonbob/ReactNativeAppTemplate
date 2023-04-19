@@ -1,24 +1,20 @@
-import { View, Text } from "react-native";
-import React, { useState } from "react";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { RootStackParamList } from "App";
+import { Colors } from "assets";
 import {
   B1,
   BoxButton,
   BoxInput,
   Err,
   H1,
-  HorizontalLine,
   Link,
   Logo,
   P1,
-  P2,
   Row,
   ScrollableView,
   Spacer,
 } from "components";
-import { Colors } from "assets";
-import GoogleAuthButton from "components/otherComponents/GoogleAuthButton";
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { RootStackParamList } from "App";
+import React, { useState } from "react";
 
 type ScreenProps = NativeStackScreenProps<RootStackParamList, "SignUpScreen">;
 

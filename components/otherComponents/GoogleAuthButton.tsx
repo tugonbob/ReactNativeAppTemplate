@@ -1,10 +1,10 @@
-import { BoxButton } from "components/uiComponents";
-import React from "react";
-import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import { auth, googleAuth } from "../../firebaseConfig";
-import { PressableProps } from "react-native";
 import { Icon, Row, Spacer } from "components/commonComponents";
 import { P1 } from "components/textComponents";
+import { BoxButton } from "components/uiComponents";
+import { signInWithPopup } from "firebase/auth";
+import React from "react";
+import { PressableProps } from "react-native";
+import { auth, googleAuth } from "../../firebaseConfig";
 
 export default function GoogleAuthButton({
   errorMsg,
