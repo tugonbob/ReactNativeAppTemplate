@@ -83,12 +83,6 @@ export function SignUpScreen({ navigation, route }: ScreenProps) {
           Log in
         </Link>
       </Row>
-      <Row>
-        <HorizontalLine style={{ marginRight: 8 }} />
-        <P2 style={{ marginBottom: 0 }}>OR</P2>
-        <HorizontalLine style={{ marginLeft: 8 }} />
-      </Row>
-      <GoogleAuthButton style={{ minHeight: 48 }} />
     </ScrollableView>
   );
 }

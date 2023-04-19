@@ -12,10 +12,10 @@ export default function GoogleAuthButton({
 }: {
   errorMsg?: string;
 } & PressableProps) {
-  function googleSignIn() {
-    // signInWithPopup(auth, googleAuth)
-    //   .then(() => console.log("success"))
-    //   .catch((e) => console.log("sjdfi", e));
+  async function googleSignIn() {
+    await signInWithPopup(auth, googleAuth)
+      .then(() => console.log("success"))
+      .catch((e) => console.log("sjdfi", e));
   }
 
   return (
