@@ -18,7 +18,7 @@ export function SplashScreen({ navigation }: ScreenProps) {
         if (user && user.emailVerified) {
           navigation.replace("HomeTabs");
         } else if (user) {
-          navigation.navigate("SignUpEmailVerificationScreen", {
+          navigation.replace("SignUpEmailVerificationScreen", {
             email: "" + user.email,
           });
         } else {

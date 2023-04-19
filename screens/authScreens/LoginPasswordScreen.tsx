@@ -31,20 +31,16 @@ export function LoginPasswordScreen({ navigation, route }: ScreenProps) {
   const [passwordError, setPasswordError] = useState("");
 
   async function submitPassword() {
-    if (!isValidPassword()) {
-      return setPasswordColor(Colors.cancel);
-    }
-
     await signInWithEmailAndPassword(auth, route.params.email, password)
       .then(() => {
-        navigation.navigate("HomeTabs");
+        navigation.replace("HomeTabs");
       })
       .catch((e: AuthError) => {
         setPasswordColor(Colors.cancel);
-
         if (
-          e.code == "auth/invalid-password" ||
-          e.code == "auth/user-not-found"
+          e.code === "auth/invalid-password" ||
+          e.code === "auth/user-not-found" ||
+          e.code === "auth/wrong-password"
         ) {
           setPasswordError("Invalid password or email");
         } else {
@@ -73,7 +69,7 @@ export function LoginPasswordScreen({ navigation, route }: ScreenProps) {
         rightIcon={
           <Link
             onPress={() =>
-              navigation.navigate("SignUpScreen", { email: route.params.email })
+              navigation.navigate("LoginScreen", { email: route.params.email })
             }
             style={{ marginBottom: 0 }}
           >
