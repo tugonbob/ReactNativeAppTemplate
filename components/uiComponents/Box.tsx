@@ -1,15 +1,7 @@
+import { AnimationDefault, AnimationProps } from "animations";
 import { Colors } from "assets";
-import React, { useState } from "react";
-import {
-  Animated,
-  Pressable,
-  PressableProps,
-  StyleSheet,
-  View,
-  ViewProps,
-  ViewStyle,
-} from "react-native";
-import { AnimationProps, AnimationDefault } from "animations";
+import React from "react";
+import { Animated, StyleSheet, ViewProps, ViewStyle } from "react-native";
 
 export function Box({
   style,
