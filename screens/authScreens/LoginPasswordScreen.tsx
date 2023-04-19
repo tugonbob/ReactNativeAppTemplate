@@ -37,7 +37,7 @@ export function LoginPasswordScreen({ navigation, route }: ScreenProps) {
 
     await signInWithEmailAndPassword(auth, route.params.email, password)
       .then(() => {
-        navigation.navigate("HomeScreen");
+        navigation.navigate("HomeTabs");
       })
       .catch((e: AuthError) => {
         setPasswordColor(Colors.cancel);

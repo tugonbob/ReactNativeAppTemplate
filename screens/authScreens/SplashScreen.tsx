@@ -16,7 +16,7 @@ export function SplashScreen({ navigation }: ScreenProps) {
     setTimeout(() => {
       onAuthStateChanged(auth, (user) => {
         if (user && user.emailVerified) {
-          navigation.replace("HomeScreen");
+          navigation.replace("HomeTabs");
         } else if (user) {
           navigation.navigate("SignUpEmailVerificationScreen", {
             email: "" + user.email,

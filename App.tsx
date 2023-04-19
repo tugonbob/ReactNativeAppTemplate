@@ -13,6 +13,7 @@ import {
   LoginForgotPasswordScreen,
   LoginForgotPasswordEmailScreen,
 } from "screens";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 export type RootStackParamList = {
   SplashScreen: undefined;
@@ -24,24 +25,34 @@ export type RootStackParamList = {
   LoginForgotPasswordScreen: { email: string };
   LoginForgotPasswordEmailScreen: { email: string };
   HomeScreen: undefined;
+  HomeTabs: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
+const Tab = createBottomTabNavigator();
+
+const defaultStyle: any = ({ navigation }: { navigation: any }) => ({
+  contentStyle: {
+    backgroundColor: Colors.gray0,
+  },
+  headerShown: true,
+  header: () => <Header onBackButtonPress={() => navigation.goBack()} />,
+});
+
+const noHeaderStyle: any = ({ navigation }: { navigation: any }) => ({
+  headerShown: true,
+  header: () => <Header hidden />,
+});
+
+function HomeTabs() {
+  return (
+    <Tab.Navigator screenOptions={noHeaderStyle}>
+      <Tab.Screen name="HomeScreen" component={HomeScreen} />
+    </Tab.Navigator>
+  );
+}
 
 export default function App() {
-  const defaultStyle: any = ({ navigation }: { navigation: any }) => ({
-    contentStyle: {
-      backgroundColor: Colors.gray0,
-    },
-    headerShown: true,
-    header: () => <Header onBackButtonPress={() => navigation.goBack()} />,
-  });
-
-  const noHeaderStyle: any = ({ navigation }: { navigation: any }) => ({
-    headerShown: true,
-    header: () => <Header hidden />,
-  });
-
   return (
     <NavigationContainer>
       <Stack.Navigator
@@ -73,10 +84,11 @@ export default function App() {
             component={LoginForgotPasswordEmailScreen}
           />
         </Stack.Group>
-
-        <Stack.Group screenOptions={noHeaderStyle}>
-          <Stack.Screen name="HomeScreen" component={HomeScreen} />
-        </Stack.Group>
+        <Stack.Screen
+          name="HomeTabs"
+          component={HomeTabs}
+          options={{ headerShown: false }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
