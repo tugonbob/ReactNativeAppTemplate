@@ -6,6 +6,7 @@ import {
   Box,
   BoxButton,
   BoxInput,
+  Err,
   H1,
   Icon,
   Link,
@@ -15,7 +16,9 @@ import {
   ScrollableView,
   Spacer,
 } from "components";
+import { AuthError, createUserWithEmailAndPassword } from "firebase/auth";
 import React, { useState } from "react";
+import { auth } from "../../firebaseConfig";
 
 type ScreenProps = NativeStackScreenProps<
   RootStackParamList,
@@ -27,16 +30,39 @@ export function SignUpPasswordScreen({ navigation, route }: ScreenProps) {
   const [showPassRequirements, setShowPassRequirements] = useState(false);
   const [hidePassword, setHidePassword] = useState(true);
   const [passwordColor, setPasswordColor] = useState(Colors.gray40);
+  const [passwordError, setPasswordError] = useState("");
+  const [emailColor, setEmailColor] = useState(Colors.gray40);
+  const [emailError, setEmailError] = useState("");
 
-  function submitPassword() {
+  async function submitPassword() {
     if (!isValidPassword()) {
       setShowPassRequirements(true);
       return setPasswordColor(Colors.cancel);
     }
 
-    navigation.navigate("SignUpEmailVerificationScreen", {
-      email: route.params.email,
-    });
+    await createUserWithEmailAndPassword(auth, route.params.email, password)
+      .then(() => {
+        navigation.navigate("SignUpEmailVerificationScreen", {
+          email: route.params.email,
+        });
+      })
+      .catch((e: AuthError) => {
+        if (e.code === "auth/email-already-in-use") {
+          setEmailError("Email already in use. Please log in");
+          setEmailColor(Colors.cancel);
+        } else if (
+          e.code === "auth/invalid-email" ||
+          e.code === "auth/invalid-email"
+        ) {
+          setEmailError("Invalid email");
+          setEmailColor(Colors.cancel);
+        } else {
+          setPasswordError(
+            "An internal error occured. Please try again in a moment"
+          );
+          setPasswordColor(Colors.cancel);
+        }
+      });
   }
 
   function isValidPassword() {
@@ -46,7 +72,7 @@ export function SignUpPasswordScreen({ navigation, route }: ScreenProps) {
   }
 
   return (
-    <ScrollableView>
+    <ScrollableView bottomSpacer>
       <Logo mode="reduced" />
       <Spacer size={64} />
       <H1 style={{ textAlign: "center" }}>Create your account</H1>
@@ -57,6 +83,7 @@ export function SignUpPasswordScreen({ navigation, route }: ScreenProps) {
       <Spacer />
       <BoxInput
         placeholder="Email"
+        editable={false}
         value={route.params.email}
         rightIcon={
           <Link
@@ -68,12 +95,13 @@ export function SignUpPasswordScreen({ navigation, route }: ScreenProps) {
             Edit
           </Link>
         }
+        contentContainerStyle={{ borderColor: emailColor }}
+        placeholderStyle={{ color: emailColor }}
       />
-
+      {emailError ? <Err>{emailError}</Err> : null}
       <Spacer size={8} />
       <BoxInput
         placeholder="Password"
-        autoFocus
         secureTextEntry={hidePassword}
         placeholderStyle={{
           color: passwordColor,
@@ -102,6 +130,8 @@ export function SignUpPasswordScreen({ navigation, route }: ScreenProps) {
           setPasswordColor(Colors.primary);
         }}
       />
+      {passwordError ? <Err>{passwordError}</Err> : null}
+
       <Spacer size={8} />
       {showPassRequirements ? (
         <Box

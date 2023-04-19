@@ -5,6 +5,7 @@ import {
   B1,
   BoxButton,
   BoxInput,
+  Err,
   H1,
   Icon,
   Link,
@@ -14,7 +15,9 @@ import {
   ScrollableView,
   Spacer,
 } from "components";
+import { AuthError, signInWithEmailAndPassword } from "firebase/auth";
 import React, { useState } from "react";
+import { auth } from "../../firebaseConfig";
 
 type ScreenProps = NativeStackScreenProps<
   RootStackParamList,
@@ -25,15 +28,31 @@ export function LoginPasswordScreen({ navigation, route }: ScreenProps) {
   const [password, setPassword] = useState("");
   const [hidePassword, setHidePassword] = useState(true);
   const [passwordColor, setPasswordColor] = useState(Colors.gray40);
+  const [passwordError, setPasswordError] = useState("");
 
-  function submitPassword() {
+  async function submitPassword() {
     if (!isValidPassword()) {
       return setPasswordColor(Colors.cancel);
     }
 
-    navigation.navigate("SignUpEmailVerificationScreen", {
-      email: route.params.email,
-    });
+    await signInWithEmailAndPassword(auth, route.params.email, password)
+      .then(() => {
+        navigation.navigate("HomeScreen");
+      })
+      .catch((e: AuthError) => {
+        setPasswordColor(Colors.cancel);
+
+        if (
+          e.code == "auth/invalid-password" ||
+          e.code == "auth/user-not-found"
+        ) {
+          setPasswordError("Invalid password or email");
+        } else {
+          setPasswordError(
+            "An internal error occured. Please try again in a moment"
+          );
+        }
+      });
   }
 
   function isValidPassword() {
@@ -62,11 +81,9 @@ export function LoginPasswordScreen({ navigation, route }: ScreenProps) {
           </Link>
         }
       />
-
       <Spacer size={8} />
       <BoxInput
         placeholder="Password"
-        autoFocus
         secureTextEntry={hidePassword}
         placeholderStyle={{
           color: passwordColor,
@@ -94,6 +111,7 @@ export function LoginPasswordScreen({ navigation, route }: ScreenProps) {
           setPasswordColor(Colors.primary);
         }}
       />
+      {passwordError ? <Err>{passwordError}</Err> : null}
       <Spacer size={8} />
       <Link
         onPress={() =>

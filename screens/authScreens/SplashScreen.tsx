@@ -1,20 +1,28 @@
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { RootStackParamList } from "App";
 import { Colors } from "assets";
-import { H1, Logo } from "components";
+import { Logo } from "components";
+import { onAuthStateChanged } from "firebase/auth";
 import React, { useEffect, useState } from "react";
 import { Animated, StyleSheet, View } from "react-native";
-import { auth, db } from "../../firebaseConfig";
-import { onAuthStateChanged, signOut } from "firebase/auth";
+import { auth } from "../../firebaseConfig";
 
-export function SplashScreen({ navigation }: { navigation: any }) {
+type ScreenProps = NativeStackScreenProps<RootStackParamList, "SplashScreen">;
+
+export function SplashScreen({ navigation }: ScreenProps) {
   const [opacityAnimation] = useState(new Animated.Value(0));
 
   useEffect(() => {
     setTimeout(() => {
       onAuthStateChanged(auth, (user) => {
-        if (user) {
+        if (user && user.emailVerified) {
           navigation.replace("HomeScreen");
+        } else if (user) {
+          navigation.navigate("SignUpEmailVerificationScreen", {
+            email: "" + user.email,
+          });
         } else {
-          navigation.replace("SignUpScreen");
+          navigation.replace("SignUpScreen", { email: "" });
         }
       });
     }, 1000);

@@ -48,7 +48,7 @@ export function LoginScreen({ navigation, route }: ScreenProps) {
       <H1 style={{ textAlign: "center" }}>Welcome back</H1>
       <BoxInput
         placeholder="Email"
-        autoFocus
+        keyboardType="email-address"
         value={email}
         onChangeText={setEmail}
         autoCapitalize="none"
