@@ -18,6 +18,7 @@ export function Header({
   height = 84 + Constants.statusBarHeight,
   backgroundColor = Colors.gray0,
   title = "",
+  shadow = false,
 }: {
   hidden?: boolean;
   onBackButtonPress?: () => void;
@@ -30,16 +31,20 @@ export function Header({
   height?: number;
   backgroundColor?: ColorValue;
   title?: string;
+  shadow?: boolean;
 }) {
   if (hidden) height = Constants.statusBarHeight + 20; // ios header heigth is 20
 
   return (
     <View
-      style={{
-        paddingTop: Constants.statusBarHeight,
-        height: height,
-        backgroundColor: backgroundColor,
-      }}
+      style={[
+        {
+          paddingTop: Constants.statusBarHeight,
+          height: height,
+          backgroundColor: backgroundColor,
+        },
+        shadow ? styles.shadow : null,
+      ]}
     >
       <View
         style={{
@@ -156,5 +161,13 @@ const styles = StyleSheet.create({
     borderRadius: 9,
     paddingVertical: 9,
     paddingHorizontal: 12,
+  },
+  shadow: {
+    shadowOffset: {
+      width: -2,
+      height: 2,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 3,
   },
 });
