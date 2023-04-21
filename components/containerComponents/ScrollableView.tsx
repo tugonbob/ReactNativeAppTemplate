@@ -9,15 +9,18 @@ import {
   ScrollView,
   ScrollViewProps,
   StyleSheet,
+  ViewProps,
 } from "react-native";
 
 export const ScrollableView = forwardRef(
   (
     {
       bottomSpacer = false,
+      style = {},
       ...props
     }: ScrollViewProps & {
       bottomSpacer?: boolean;
+      style?: ViewProps;
     },
     ref: any
   ) => {
@@ -34,7 +37,7 @@ export const ScrollableView = forwardRef(
         >
           <ScrollView
             ref={ref}
-            style={[styles.scrollViewDefaultStyle, props.style]}
+            style={[styles.scrollViewDefaultStyle, style]}
             showsHorizontalScrollIndicator={false}
             showsVerticalScrollIndicator={false}
             keyboardShouldPersistTaps="always"
