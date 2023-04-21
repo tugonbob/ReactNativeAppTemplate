@@ -1,5 +1,8 @@
 import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import {
+  NativeStackHeaderProps,
+  createNativeStackNavigator,
+} from "@react-navigation/native-stack";
 import { Colors } from "assets";
 import { Header } from "components";
 import {
@@ -31,7 +34,7 @@ export type RootStackParamList = {
 const Stack = createNativeStackNavigator<RootStackParamList>();
 const Tab = createBottomTabNavigator();
 
-const defaultStyle: any = ({ navigation }: { navigation: any }) => ({
+const defaultStyle: any = ({ navigation }: NativeStackHeaderProps) => ({
   contentStyle: {
     backgroundColor: Colors.gray0,
   },
@@ -39,7 +42,7 @@ const defaultStyle: any = ({ navigation }: { navigation: any }) => ({
   header: () => <Header onBackButtonPress={() => navigation.goBack()} />,
 });
 
-const noHeaderStyle: any = ({ navigation }: { navigation: any }) => ({
+const noHeaderStyle: any = ({ navigation }: NativeStackHeaderProps) => ({
   headerShown: true,
   header: () => <Header hidden />,
 });
