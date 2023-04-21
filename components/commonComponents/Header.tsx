@@ -66,7 +66,7 @@ export function Header({
         </View>
 
         <View style={styles.centerContainer}>
-          {title !== "" ? <B1>{title}</B1> : null}
+          {title !== "" ? <B1 style={{ marginBottom: 0 }}>{title}</B1> : null}
         </View>
 
         <View style={styles.rightButtonsContainer}>
