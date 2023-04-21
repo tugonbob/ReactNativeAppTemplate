@@ -17,8 +17,14 @@ export function BoxButton({
     scale = AnimationDefault.scale,
     translate = AnimationDefault.translate,
   } = AnimationDefault,
+  backgroundColorAnimation = [Colors.gray0, Colors.gray10],
+  borderColorAnimation = [Colors.gray40, Colors.gray90],
   ...props
-}: PressableProps & { animation?: AnimationProps }) {
+}: PressableProps & {
+  animation?: AnimationProps;
+  backgroundColorAnimation?: string[];
+  borderColorAnimation?: string[];
+}) {
   const [pressAnimation] = useState(new Animated.Value(0));
   const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
@@ -39,12 +45,12 @@ export function BoxButton({
 
   const backgroundColorScale = pressAnimation.interpolate({
     inputRange: [0, 1],
-    outputRange: [Colors.gray0, Colors.gray10],
+    outputRange: backgroundColorAnimation,
   });
 
   const borderColorScale = pressAnimation.interpolate({
     inputRange: [0, 1],
-    outputRange: [Colors.gray40, Colors.gray90],
+    outputRange: borderColorAnimation,
   });
 
   return (
