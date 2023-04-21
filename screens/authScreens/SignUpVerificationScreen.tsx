@@ -26,9 +26,9 @@ export function SignUpVerificationScreen({ route, navigation }: ScreenProps) {
     sendVerifyEmail();
   }, [auth.currentUser?.emailVerified]);
 
-  async function sendVerifyEmail() {
+  function sendVerifyEmail() {
     if (!auth.currentUser) return;
-    await sendEmailVerification(auth.currentUser);
+    sendEmailVerification(auth.currentUser);
   }
 
   return (

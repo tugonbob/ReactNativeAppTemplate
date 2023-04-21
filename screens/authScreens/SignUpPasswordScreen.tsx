@@ -66,7 +66,7 @@ export function SignUpPasswordScreen({ navigation, route }: ScreenProps) {
   }
 
   function isValidPassword() {
-    if (password.length < 8) return false;
+    if (password.length < 6) return false;
     if (password.includes(" ")) return false;
     return true;
   }
@@ -142,11 +142,11 @@ export function SignUpPasswordScreen({ navigation, route }: ScreenProps) {
           }}
         >
           <P1>Your password must contain:</P1>
-          {password.length < 8 ? (
-            <P1>{"  \u2022\t"} At least 8 characters</P1>
+          {password.length < 6 ? (
+            <P1>{"  \u2022\t"} At least 6 characters</P1>
           ) : (
             <P1 style={{ color: "green" }}>
-              {"  \u2713\t"}At least 8 characters
+              {"  \u2713\t"}At least 6 characters
             </P1>
           )}
           {password.includes(" ") ? (

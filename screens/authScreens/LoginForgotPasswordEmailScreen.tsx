@@ -11,7 +11,9 @@ import {
   ScrollableView,
   Spacer,
 } from "components";
-import React from "react";
+import { sendPasswordResetEmail } from "firebase/auth";
+import { auth } from "../../firebaseConfig";
+import React, { useEffect } from "react";
 
 type ScreenProps = NativeStackScreenProps<
   RootStackParamList,
@@ -22,6 +24,14 @@ export function LoginForgotPasswordEmailScreen({
   navigation,
   route,
 }: ScreenProps) {
+  useEffect(() => {
+    sendRecoverEmail();
+  }, []);
+
+  function sendRecoverEmail() {
+    sendPasswordResetEmail(auth, route.params.email);
+  }
+
   return (
     <ScrollableView>
       <Logo mode="reduced" />
@@ -38,7 +48,13 @@ export function LoginForgotPasswordEmailScreen({
         reset your password.
       </P1>
       <Spacer />
-      <BoxButton style={{ minHeight: 48 }}>
+      <BoxButton
+        onPress={() => {
+          alert("Reset password email sent");
+          sendRecoverEmail();
+        }}
+        style={{ minHeight: 48 }}
+      >
         <P1 style={{ marginBottom: 0 }}>Resend email</P1>
       </BoxButton>
       <Spacer />

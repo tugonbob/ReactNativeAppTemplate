@@ -21,6 +21,7 @@ type ScreenProps = NativeStackScreenProps<
 
 export function LoginForgotPasswordScreen({ navigation, route }: ScreenProps) {
   const [email, setEmail] = useState(route.params.email);
+  const [emailColor, setEmailColor] = useState(Colors.gray40);
 
   return (
     <ScrollableView>
@@ -32,7 +33,16 @@ export function LoginForgotPasswordScreen({ navigation, route }: ScreenProps) {
         password.
       </P1>
       <Spacer />
-      <BoxInput placeholder="Email" value={email} onChangeText={setEmail} />
+      <BoxInput
+        placeholder="Email"
+        value={email}
+        onChangeText={setEmail}
+        onFocus={() => setEmailColor(Colors.primary)}
+        placeholderStyle={{
+          color: emailColor,
+        }}
+        contentContainerStyle={{ borderColor: emailColor }}
+      />
       <Spacer size={16} />
       <BoxButton
         onPress={() =>
